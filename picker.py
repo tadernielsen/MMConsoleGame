@@ -2,7 +2,7 @@ import numpy as np
 import random as rnd
 from user import user
 
-def CreateUser(name):
+def createUser(name):
     return user(name)
 
 def calculateTotalChance(users):
@@ -45,10 +45,29 @@ def main():
                 continue
 
             name = input("Enter user name: ")
-            users.append(CreateUser(name))
+            users.append(createUser(name))
             print(f"User '{name}' created.\n")
         elif choice == '2':
-            pass
+            if len(users) == 0:
+                print("No users\n")
+                continue
+
+            while True:
+                deleteUser = input("Enter the user to remove (enter 'lst' to see all users): ")
+
+                if deleteUser == "lst":
+                    for user in users:
+                        print(user.name)
+                    print()
+                else:
+                    for user in users: ## Could rewrite to catch an exception that is thrown when there is no item in the list
+                        if user.name == deleteUser:
+                            users.remove(deleteUser)
+                            print("User successfuly removed\n")
+                            break
+                    
+                    print("User not found\n")
+                    break
         elif choice == '3':
             totalChance = calculateTotalChance(users)
             
